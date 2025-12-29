@@ -1,9 +1,12 @@
-<h1 class="text-3xl">{{ title() }}</h1>
+<app-nav></app-nav>
+<div class="mt-24">
+  <h1 class="text-3xl">{{ title() }}</h1>
 
-<ul>
-  @for (member of members(); track member.id) {
+  <ul>
+    @for (member of members(); track member.id) {
     <li>{{ member.id }} - {{ member.displayName }}</li>
-  }
-</ul>
+    }
+  </ul>
 
-<button class="btn btn-primary">Primary</button>
+  <button class="btn btn-primary">Primary</button>
+</div>

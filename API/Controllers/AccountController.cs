@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,13 +37,7 @@ namespace API.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            return new UserDto
-            {
-                Id = user.Id,
-                DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = tokenService.CreateToken(user)
-            };
+            return user.ToDto(tokenService);
         }
 
         [HttpPost("login")]
@@ -67,13 +62,7 @@ namespace API.Controllers
                 }
             }
 
-            return new UserDto
-            {
-                Id = user.Id,
-                DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = tokenService.CreateToken(user)
-            };
+            return user.ToDto(tokenService);
         }
 
         private async Task<bool> EmailExists(string email)
